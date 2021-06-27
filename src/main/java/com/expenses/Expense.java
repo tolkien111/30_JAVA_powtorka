@@ -1,5 +1,6 @@
 package com.expenses;
-
+// Wzorzec Static Factory Method
+import com.expenses.util.InvalidExpenseException;
 import com.expenses.util.NumberHelper;
 
 import java.math.BigDecimal;
@@ -70,16 +71,16 @@ public class Expense {
     // todo throwing a runtime exception here is not very useful for users of this class...
 
     if (amount.compareTo(BigDecimal.ZERO) < 0) {
-      throw new RuntimeException();
+      throw new InvalidExpenseException("kwota poniżej zera");
     }
     if (date == null || date.isAfter(LocalDate.now())) {
-      throw new RuntimeException();
+      throw new InvalidExpenseException("data jest niepoprawna");
     }
     if (location == null || location.isBlank()) {
-      throw new RuntimeException();
+      throw new InvalidExpenseException("nie podano lokalizacji");
     }
     if (!NumberHelper.hasTwoOrLessDecimalPlaces(amount.toPlainString())) {
-      throw new RuntimeException();
+      throw new InvalidExpenseException("muszą być 2 miejsca po przecinku");
     }
     return new Expense(amount, date, location, category);
   }

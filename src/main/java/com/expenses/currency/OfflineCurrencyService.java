@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Map;
 
-public class OfflineCurrencyService {
+public class OfflineCurrencyService implements CurrencyService {
   private static final Map<Currency, BigDecimal> RATES = Map.of(
       Currency.POLISH_ZLOTY, BigDecimal.ONE,
       Currency.US_DOLLAR, BigDecimal.valueOf(3.5),

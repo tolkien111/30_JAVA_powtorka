@@ -1,6 +1,7 @@
 package com.expenses.io;
 
 import com.expenses.Expense;
+import com.expenses.util.InvalidExpenseException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,7 +27,7 @@ public class ExpenseCsvMapper {
 
       // Skip header
       bufferedReader.readLine();
-
+// tutaj trzeba wrzucic try żeby nie dodawał nam nulla do pliku
       String line = bufferedReader.readLine();
       while (line != null) {
         expenses.add(mapFromCsvRow(line));
@@ -89,9 +90,14 @@ public class ExpenseCsvMapper {
     if (columns.length > 3) {
       category = columns[3];
     }
-
-    Expense expense = Expense.from(amount, date, location, category);
-
+//zadanie 2.3
+    Expense expense;
+    try {
+      expense = Expense.from(amount, date, location, category);
+    } catch (InvalidExpenseException invalidExpenseException){
+      System.out.println(invalidExpenseException.getMessage());
+      return null;
+  }
     return expense;
   }
 }
